@@ -17,7 +17,7 @@ const route = [
    * */
   {
     exact: true,
-    url: '/customer/dashboard',
+    url: '/customer/Dashboard',
     component: Customer.Dashboard,
   },
 ];

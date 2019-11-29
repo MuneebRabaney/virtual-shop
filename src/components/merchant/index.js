@@ -1,4 +1,5 @@
-import DashBoard from './dashboard';
+import * as Product from './product';
 import Signup from './signup';
+import Dashboard from './dashboard';
 
-export { Signup, DashBoard };
+export { Signup, Dashboard, Product };

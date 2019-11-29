@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import {
   Button,
   TextField,
@@ -12,15 +13,20 @@ import SaveIcon from '@material-ui/icons/Save';
 import { LoadingSpinner } from '../loaders';
 import { Link, Redirect } from 'react-router-dom';
 
+import { API, graphqlOperation } from 'aws-amplify';
+import { createMerchant } from '../../graphql/mutations';
+
 class Signup extends Component {
   state = {
     input: {
-      email: '',
-      firstname: '',
-      lastname: '',
+      role: 2,
+      title: '',
+      username: '',
       password: '',
-      contact_number: '',
       email_address: '',
+      contact_number: '',
+      created_at: '',
+      updated_at: '',
     },
     toggle: {
       passwordVisibility: false,
@@ -29,6 +35,7 @@ class Signup extends Component {
   };
 
   handlePasswordVisibility = () => {
+    console.log('here');
     const { passwordVisibility } = this.state.toggle;
     const state = Object.assign({}, this.state);
     state.toggle.passwordVisibility = !passwordVisibility;
@@ -43,13 +50,32 @@ class Signup extends Component {
   };
 
   handleOnFormInputChange = event => {
-    const { name, value } = event.currentTarget;
+    const { id, value } = event.currentTarget;
+    // console.log(id, value);
     const state = Object.assign({}, this.state);
-    state[name] = value;
+    state.input[id] = value;
     this.setState(state);
   };
 
-  handleFormSubmission = () => {};
+  handleFormSubmission = event => {
+    event.preventDefault();
+    // CreateMerchantMutation;
+    // if all passes state input errors
+    const input = {
+      ...this.state.input,
+      created_at: this.handleCreateDateTimeStamp(),
+      updated_at: this.handleCreateDateTimeStamp(),
+    };
+    this.handleCreateNewMerchant({ input })
+      .then(r => console.log(r))
+      .catch(error => console.log(error.message));
+  };
+
+  handleCreateNewMerchant = async ({ input }) => {
+    return await API.graphql(graphqlOperation(createMerchant, { input }));
+  };
+
+  handleCreateDateTimeStamp = () => moment().format();
 
   handleMouseDownPassword = event => event.preventDefault();
 
@@ -62,24 +88,24 @@ class Signup extends Component {
           <FormControl>
             <TextField
               required
-              id='firstname'
-              label='First Name'
+              id='title'
+              label='Company Name'
               margin='normal'
-              onChange={this.handleOnInputChange}
+              onChange={this.handleOnFormInputChange}
               error={errors && errors.firstname}
               helperText={
-                errors && errors.firstname ? 'First name is required' : ''
+                errors && errors.firstname ? 'Company name is required' : ''
               }
             />
             <TextField
               required
-              id='lastname'
-              label='Last Name'
+              id='username'
+              label='Username'
               margin='normal'
-              onChange={this.handleOnInputChange}
+              onChange={this.handleOnFormInputChange}
               error={errors && errors.lastname}
               helperText={
-                errors && errors.lastname ? 'Last name is required' : ''
+                errors && errors.lastname ? 'Username is required' : ''
               }
             />
             <TextField
@@ -87,20 +113,23 @@ class Signup extends Component {
               id='contact_number'
               label='Contact Number'
               margin='normal'
-              onChange={this.handleOnInputChange}
-              error={errors && errors.contact_number}
+              onChange={this.handleOnFormInputChange}
+              error={errors && errors.email_address}
               helperText={
                 errors && errors.contact_number
-                  ? 'Contact number is required'
+                  ? 'A contact number is required'
                   : ''
               }
+              InputProps={{
+                'aria-label': 'set a user contact number',
+              }}
             />
             <TextField
               required
               id='email_address'
               label='Email'
               margin='normal'
-              onChange={this.handleOnInputChange}
+              onChange={this.handleOnFormInputChange}
               error={errors && errors.email_address}
               helperText={
                 errors && errors.email_address
@@ -115,7 +144,7 @@ class Signup extends Component {
               required
               id='password'
               label='Password'
-              onChange={this.handleOnInputChange}
+              onChange={this.handleOnFormInputChange}
               error={errors && errors.password}
               helperText={
                 errors && errors.password ? 'A password is required' : ''

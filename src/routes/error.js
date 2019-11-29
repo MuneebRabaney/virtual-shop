@@ -1,5 +1,5 @@
 import { Errors } from '../components';
-console.log(Errors);
+
 const route = [
   {
     url: ['*', '/404'],

@@ -14,12 +14,21 @@
     "@aws-amplify/pubsub": "latest",
     "@material-ui/core": "^4.7.0",
     "@material-ui/icons": "^4.5.1",
+    "aws-amplify": "^1.2.4",
+    "aws-amplify-react": "^2.5.4",
+    "moment": "^2.24.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "styled-components": "latest"
   },
+  "keywords": [
+    "React",
+    "Apollo",
+    "graphQl",
+    "AppSync"
+  ],
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
