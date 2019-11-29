@@ -1,0 +1,14 @@
+{
+    "local": {
+        "awscloudformation": {
+            "AuthRoleName": "virtual-shop-local-20191129113224-authRole",
+            "UnauthRoleArn": "arn:aws:iam::054114653931:role/virtual-shop-local-20191129113224-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::054114653931:role/virtual-shop-local-20191129113224-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "virtual-shop-local-20191129113224-deployment",
+            "UnauthRoleName": "virtual-shop-local-20191129113224-unauthRole",
+            "StackName": "virtual-shop-local-20191129113224",
+            "StackId": "arn:aws:cloudformation:us-east-1:054114653931:stack/virtual-shop-local-20191129113224/27e318d0-128b-11ea-879c-12717722e021"
+        }
+    }
+}

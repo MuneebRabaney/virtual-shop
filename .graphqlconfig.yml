@@ -1,0 +1,15 @@
+projects:
+  MyVirtualShop:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - src/graphql/**/*.js
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: flow
+        generatedFileName: src/API.js
+        docsFilePath: src/graphql
+        region: us-east-1
+        apiId: ukuo4pinobbgfptoeyjebg2j74
+        maxDepth: 2
